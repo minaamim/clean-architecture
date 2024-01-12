@@ -27,6 +27,14 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation ("mysql:mysql-connector-java:8.0.33")
     runtimeOnly ("com.mysql:mysql-connector-j")
+
+    //cache
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("com.github.ben-manes.caffeine:caffeine")
+    implementation("io.github.microutils:kotlin-logging:3.0.5")
+
+    //test
+    testImplementation("com.ninja-squad:springmockk:3.1.1")
 }
 
 tasks.withType<KotlinCompile> {
