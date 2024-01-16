@@ -19,6 +19,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set("springCloudVersion", "2023.0.0")
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -33,8 +37,22 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
 
+    //vault
+//    implementation("org.springframework.cloud:spring-cloud-config-server") //구성 서버
+//    implementation("org.springframework.cloud:spring-cloud-starter-bootstrap") //부트스트랩
+//    implementation("org.springframework.cloud:spring-cloud-starter-vault-config") //볼트
+    implementation("org.springframework.vault:spring-vault-core:3.1.0")
+//    implementation("org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config:2.2.6.RELEASE")
+//    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     //test
     testImplementation("com.ninja-squad:springmockk:3.1.1")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
+    }
 }
 
 tasks.withType<KotlinCompile> {
@@ -46,4 +64,8 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named("compileJava") {
+    inputs.files(tasks.named("processResources"))
 }

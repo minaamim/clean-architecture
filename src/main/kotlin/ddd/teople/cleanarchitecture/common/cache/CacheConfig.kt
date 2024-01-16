@@ -1,4 +1,4 @@
-package ddd.teople.cleanarchitecture.common.config
+package ddd.teople.cleanarchitecture.common.cache
 
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.cache.CacheManager

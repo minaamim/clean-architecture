@@ -1,4 +1,4 @@
-package ddd.teople.cleanarchitecture.common.config
+package ddd.teople.cleanarchitecture.common.cache
 
 
 enum class CacheType(var cacheName: String, val expireAfterWrite: Long, val maximumSize: Long) {
