@@ -1,13 +1,16 @@
 package ddd.teople.cleanarchitecture
 
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
 
-@SpringBootTest
+/**
+ * 비지니스로직과 테스트로직을 분리하기 위해 별도의 Runner Class 사용
+ */
+@SpringBootApplication
 class CleanArchitectureApplicationTests {
 
-    @Test
-    fun contextLoads() {
+    fun main(args: Array<String>) {
+        runApplication<CleanArchitectureApplicationTests>(*args)
     }
 
 }
