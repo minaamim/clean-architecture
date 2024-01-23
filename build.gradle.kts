@@ -24,6 +24,8 @@ ext {
 }
 
 dependencies {
+    val cucumberVersion = "7.11.1"
+
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -47,6 +49,14 @@ dependencies {
 
     //test
     testImplementation("com.ninja-squad:springmockk:3.1.1")
+
+    // Cucumber
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.platform:junit-platform-suite")
+    testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-spring:$cucumberVersion")
+    testImplementation("io.kotest:kotest-assertions-core:5.8.0")    // cucumber 내에서 kotest assertion 사용하기 위해 추가
 }
 
 dependencyManagement {
