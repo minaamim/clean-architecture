@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
+    id("com.google.cloud.tools.jib") version "3.4.0"    // official github: https://github.com/GoogleContainerTools/jib/tags
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
     kotlin("plugin.jpa") version "1.9.21"
@@ -68,4 +69,36 @@ tasks.withType<Test> {
 
 tasks.named("compileJava") {
     inputs.files(tasks.named("processResources"))
+}
+
+/*
+    빌드방법
+     - 빌드는 gitaction 또는 Jenkins를 통해 빌드한다.
+     - 일반적인 gradle빌드와 동일하나 "build" 명령어 대신 "jib" 명령어를 사용한다
+     - 명령어 예시: ./gradlew clean jib -x test
+ */
+jib {
+    from {
+        image = "eclipse-temurin:17" // 베이스 이미지 ( jdk 버전에 맞춰서 설정, "openjdk:17-jdk-slim-buster"도 무방 )
+    }
+    to {
+        image = "johnpark0921/lotto-portfolio:tagname"  // Docker Image를 push할 DockerRegistry 경로 ( ${dockerId}/${projectName}:${version} )
+    }
+    // Docker Container 설정정보 ( optional )
+    container {
+        labels.set(
+            mapOf(
+                "maintainer" to "Teople팀 <mina> <yoonho>"
+            )
+        )
+        creationTime.set("USE_CURRENT_TIMESTAMP")
+        environment = mapOf(
+            "TZ" to "Asia/Seoul"
+        )
+        jvmFlags = listOf(
+            "-Dsun.net.inetaddr.ttl=0",
+            "-XX:+PrintCommandLineFlags",
+            "-XX:+UseContainerSupport"
+        )
+    }
 }
