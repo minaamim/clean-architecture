@@ -20,22 +20,22 @@ class VaultConfig : AbstractVaultConfiguration() {
 
     override fun clientAuthentication(): ClientAuthentication {
 
-        return TokenAuthentication(environment.getProperty("vault.token") ?: throw NullPointerException("vault token이 없습니다."))
+//        return TokenAuthentication(environment.getProperty("vault.token") ?: throw NullPointerException("vault token이 없습니다."))
 
-//        // AppRole
-//        val options = AppRoleAuthenticationOptions.builder()
-//            .roleId(
-//                AppRoleAuthenticationOptions.RoleId.provided(
-//                    environment.getProperty("vault.app-role.role-id") ?: throw NullPointerException("vault role-id가 없습니다.")
-//                )
-//            )
-//            .secretId(
-//                AppRoleAuthenticationOptions.SecretId.provided(
-//                    environment.getProperty("vault.app-role.secret-id") ?: throw NullPointerException("vault secret-id가 없습니다.")
-//                )
-//            )
-//            .build()
-//
-//            return AppRoleAuthentication(options, restOperations())
+        // AppRole
+        val options = AppRoleAuthenticationOptions.builder()
+            .roleId(
+                AppRoleAuthenticationOptions.RoleId.provided(
+                    environment.getProperty("vault.app-role.role-id") ?: throw NullPointerException("vault role-id가 없습니다.")
+                )
+            )
+            .secretId(
+                AppRoleAuthenticationOptions.SecretId.provided(
+                    environment.getProperty("vault.app-role.secret-id") ?: throw NullPointerException("vault secret-id가 없습니다.")
+                )
+            )
+            .build()
+
+            return AppRoleAuthentication(options, restOperations())
     }
 }
