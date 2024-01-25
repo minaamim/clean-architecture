@@ -1,4 +1,4 @@
-package ddd.teople.cleanarchitecture.common.vault
+package ddd.teople.cleanarchitecture.config
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource

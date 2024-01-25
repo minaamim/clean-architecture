@@ -1,11 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    val kotlinVersion = "1.9.21"
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.21"
-    kotlin("plugin.spring") version "1.9.21"
-    kotlin("plugin.jpa") version "1.9.21"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+
+    // Java에서 사용하는 annotation을 kotlin에서도 사용하기 위해 kapt 플러그인 사용
+    // kpat는 현재 maintenance mode(유지보수 모드)로 추가기능 지원하지 않고 있음
+    // 대체재로 KSP가 있으나 아직 QueryDSL을 지원하지 않음
+    kotlin("kapt") version kotlinVersion
 }
 
 group = "ddd.teople"
@@ -47,6 +53,12 @@ dependencies {
 
     //test
     testImplementation("com.ninja-squad:springmockk:3.1.1")
+
+
+    // QueryDSL
+    //  - javax에서 jakarta로 변경
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 }
 
 dependencyManagement {
