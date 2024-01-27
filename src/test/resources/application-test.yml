@@ -1,0 +1,36 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  cloud:
+    vault:
+      uri: http://localhost:8200
+
+      app-role:
+        role-id: e50a9f5c-55d6-6376-cb74-1f9629e6561a
+        secret-id: 2753984d-9719-9b91-4b46-b0cc3d4629b2
+        role: teople_all_policy
+        app-role-path: approle
+
+      database:
+        enabled: true
+        role: readonly
+        backend: mysql
+        username-property: root
+        password-property: 8244
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/sample?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 8244
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000
+    generate-ddl: true

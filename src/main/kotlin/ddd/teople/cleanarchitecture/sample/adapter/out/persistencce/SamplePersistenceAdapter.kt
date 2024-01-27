@@ -22,8 +22,8 @@ class SamplePersistenceAdapter(
         return sampleRepository.findNameById(sampleId)
     }
 
-    override fun generate(sample: Sample) {
-        sampleRepository.save(sample)
+    override fun generate(sample: Sample) : Long? {
+        return sampleRepository.save(sample).id
     }
 
     override fun delete(sampleId: Long) {

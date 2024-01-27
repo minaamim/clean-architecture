@@ -3,10 +3,21 @@ spring:
     include: bootstrap
 
   datasource:
+    url: jdbc:mysql://localhost:3306/sample?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 8244
+    driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-timeout: 5000
       minimum-idle: 10
       maximum-pool-size: 100
+      jdbc-url: jdbc:mysql://localhost:3306/sample?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+
+logging:
+  level:
+    org.hibernate.sql: info
+    root: info
+    com.zaxxer.hikari.pool.HikariPool: debug
 
   jpa:
     hibernate:
@@ -26,3 +37,7 @@ vault:
   secret:
     appconfig: teople/local
 
+mysql:
+  url: jdbc:mysql://localhost:3306/sample?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+  username: root
+  password: 8244

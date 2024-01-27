@@ -5,6 +5,7 @@ import ddd.teople.cleanarchitecture.sample.application.port.`in`.DeleteSampleUse
 import ddd.teople.cleanarchitecture.sample.application.port.`in`.FindNameUseCase
 import ddd.teople.cleanarchitecture.sample.application.port.`in`.MakeSampleUseCase
 import ddd.teople.cleanarchitecture.sample.application.port.`in`.UpdateNameUseCase
+import ddd.teople.cleanarchitecture.sample.domain.Sample
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -20,13 +21,13 @@ class SampleController(
     }
 
     @PostMapping("/api/v1/sample/making/{sampleName}")
-    fun makeSample(@PathVariable sampleName: String) {
-        makeSampleUseCase.generate(sampleName)
+    fun makeSample(@PathVariable sampleName: String) : Sample {
+        return makeSampleUseCase.generate(sampleName)
     }
 
     @PatchMapping("/api/v1/sample/update-name")
-    fun updateName(@RequestBody request: UpdateNameReq) {
-        updateNameUseCase.updateName(request.toCommand())
+    fun updateName(@RequestBody request: UpdateNameReq) : Sample {
+        return updateNameUseCase.updateName(request.toCommand())
     }
 
     @DeleteMapping("/api/v1/sample/delete-sample/{sampleId}")
