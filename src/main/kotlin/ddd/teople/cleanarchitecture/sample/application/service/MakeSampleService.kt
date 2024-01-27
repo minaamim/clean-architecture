@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service
 @Service
 @Transactional
 class MakeSampleService(private val port: MakeSamplePort) : MakeSampleUseCase {
-    override fun generate(sampleName: String) {
+    override fun generate(sampleName: String) : Sample {
         val sample = Sample(sampleName)
-        port.generate(sample)
+        port.generate(sample)?: throw IllegalStateException("New sample creation failed")
+        return sample
     }
 }

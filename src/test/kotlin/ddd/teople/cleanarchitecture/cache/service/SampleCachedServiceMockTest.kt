@@ -1,6 +1,7 @@
 package ddd.teople.cleanarchitecture.cache.service
 
 import com.ninjasquad.springmockk.MockkBean
+import ddd.teople.cleanarchitecture.CleanArchitectureApplicationTests
 import ddd.teople.cleanarchitecture.sample.adapter.out.persistencce.SampleRepository
 import ddd.teople.cleanarchitecture.sample.domain.Sample
 import io.mockk.every
@@ -15,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@SpringBootTest(classes = [CleanArchitectureApplicationTests::class])
 @ExtendWith(MockKExtension::class)
 class SampleCachedServiceMockTest @Autowired constructor(
     private val cachedService: SampleCachedService
