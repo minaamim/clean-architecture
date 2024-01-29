@@ -25,9 +25,11 @@ ext {
 
 dependencies {
     val kotestVersion = "5.8.0"
+    val cucumberVersion = "7.11.1"
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation ("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -49,6 +51,15 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     implementation("io.kotest.extensions:kotest-extensions-spring:1.1.3")
+
+
+    //cucumber
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.platform:junit-platform-suite")
+    testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-spring:$cucumberVersion")
+    testImplementation("io.kotest:kotest-assertions-core:5.8.0")
 }
 
 dependencyManagement {
