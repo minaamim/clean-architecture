@@ -6,6 +6,8 @@ import ddd.teople.cleanarchitecture.sample.application.port.`in`.FindNameUseCase
 import ddd.teople.cleanarchitecture.sample.application.port.`in`.MakeSampleUseCase
 import ddd.teople.cleanarchitecture.sample.application.port.`in`.UpdateNameUseCase
 import ddd.teople.cleanarchitecture.sample.domain.Sample
+import jakarta.validation.constraints.NotBlank
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -21,12 +23,12 @@ class SampleController(
     }
 
     @PostMapping("/api/v1/sample/making/{sampleName}")
-    fun makeSample(@PathVariable sampleName: String) : Sample {
+    fun makeSample(@PathVariable("sampleName") @NotBlank sampleName: String) : Sample{
         return makeSampleUseCase.generate(sampleName)
     }
 
     @PatchMapping("/api/v1/sample/update-name")
-    fun updateName(@RequestBody request: UpdateNameReq) : Sample {
+    fun updateName(@RequestBody @Validated request: UpdateNameReq) : Sample {
         return updateNameUseCase.updateName(request.toCommand())
     }
 

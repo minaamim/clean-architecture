@@ -1,5 +1,7 @@
 package ddd.teople.cleanarchitecture.sample.application.service
 
+import ddd.teople.cleanarchitecture.common.exception.BusinessException
+import ddd.teople.cleanarchitecture.common.exception.ErrorCode
 import ddd.teople.cleanarchitecture.sample.application.port.`in`.UpdateNameCommand
 import ddd.teople.cleanarchitecture.sample.application.port.`in`.UpdateNameUseCase
 import ddd.teople.cleanarchitecture.sample.application.port.out.LoadSamplePort
@@ -15,7 +17,7 @@ class UpdateNameService(
     private val updateNamePort: UpdateNamePort
     ): UpdateNameUseCase {
     override fun updateName(command: UpdateNameCommand) : Sample {
-        val sample = loadSamplePort.loadSample(command.SampleId) ?: throw IllegalStateException("this sample does not exist")
+        val sample = loadSamplePort.loadSample(command.SampleId) ?: throw BusinessException(ErrorCode.MEMBER_NOT_FOUND)
 
         sample.updateName(command.name)
         updateNamePort.save(sample)
