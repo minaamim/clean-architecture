@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
+    id("com.google.cloud.tools.jib") version "3.4.0"
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
     kotlin("plugin.jpa") version "1.9.21"
@@ -81,4 +82,34 @@ tasks.withType<Test> {
 
 tasks.named("compileJava") {
     inputs.files(tasks.named("processResources"))
+}
+
+jib {
+    from {
+        image = "eclips-temurin:17"
+    }
+    to {
+        image = "mina5814/teople"
+        auth {
+            username = "teople"
+            password = "dckr_pat_BHVcbLi6g8MFW8N-uLKx7FfXCaI"
+        }
+    }
+
+    container {
+        labels.set(
+            mapOf(
+                "maintainer" to "Teople <mina> <yoonho>"
+            )
+        )
+        creationTime.set("USE_CURRENT_TIMESTAMP")
+        environment = mapOf(
+            "TZ" to "Asia/Seoul"
+        )
+        jvmFlags = listOf(
+            "-Dsun.net.inetaddr.ttl=0",
+            "-XX:+PrintCommandLineFlags",
+            "-XX:+UseContainerSupport"
+        )
+    }
 }

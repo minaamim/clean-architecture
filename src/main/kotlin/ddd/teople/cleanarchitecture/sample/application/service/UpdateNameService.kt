@@ -16,10 +16,10 @@ class UpdateNameService(
     private val loadSamplePort: LoadSamplePort,
     private val updateNamePort: UpdateNamePort
     ): UpdateNameUseCase {
-    override fun updateName(command: UpdateNameCommand) : Sample {
-        val sample = loadSamplePort.loadSample(command.SampleId) ?: throw BusinessException(ErrorCode.MEMBER_NOT_FOUND)
+    override fun updateName(updateNameCommand: UpdateNameCommand) : Sample {
+        val sample = loadSamplePort.loadSample(updateNameCommand.SampleId) ?: throw BusinessException(ErrorCode.MEMBER_NOT_FOUND)
 
-        sample.updateName(command.name)
+        sample.updateName(updateNameCommand.name)
         updateNamePort.save(sample)
         return sample;
     }
